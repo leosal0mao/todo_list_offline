@@ -12,6 +12,6 @@ class FetchTodosUsecaseImpl extends FetchTodosUsecase {
 
   @override
   Future<Either<Failure, List<Todo>>> call() {
-    return repository.fetchTodos();
+    return repository.fetch();
   }
 }
