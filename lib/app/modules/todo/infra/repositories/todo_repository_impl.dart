@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:todo_list_offline/app/modules/todo/external/mappers/mappers.dart';
 
 import '../../../../core/helpers/errors/failure.dart';
 import '../../domain/entities/todo.dart';
@@ -13,7 +14,7 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, List<Todo>>> fetch() async {
     try {
-      var response = await datasource.fetchTodos();
+      var response = await datasource.fetch();
       return Right(response);
     } on Failure catch (e) {
       return Left(e);
@@ -21,9 +22,9 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> create() async {
+  Future<Either<Failure, int>> create(Todo todo) async {
     try {
-      var response = await datasource.createTodo();
+      var response = await datasource.create(map: TodoMapper.toMap(todo));
       return Right(response);
     } on Failure catch (e) {
       return Left(e);
@@ -31,9 +32,9 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> delete() async {
+  Future<Either<Failure, int>> delete(Todo todo) async {
     try {
-      var response = await datasource.deleteTodo();
+      var response = await datasource.delete(todo.id);
       return Right(response);
     } on Failure catch (e) {
       return Left(e);
@@ -41,9 +42,9 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> update() async {
+  Future<Either<Failure, int>> update(Todo todo) async {
     try {
-      var response = await datasource.updateTodo();
+      var response = await datasource.update(TodoMapper.toMap(todo));
       return Right(response);
     } on Failure catch (e) {
       return Left(e);

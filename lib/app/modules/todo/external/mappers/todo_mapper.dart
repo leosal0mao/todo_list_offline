@@ -17,7 +17,7 @@ class TodoMapper {
     }
   }
 
-  Map<String, dynamic> toMap(Todo todo) {
+  static Map<String, dynamic> toMap(Todo todo) {
     try {
       return {
         'id': todo.id,
@@ -26,6 +26,14 @@ class TodoMapper {
         'description': todo.description,
         'datetime': todo.datetime,
       };
+    } catch (e, stack) {
+      throw TodoMapperErrors(e.toString(), stack);
+    }
+  }
+
+  static List<Todo> fromListMap(List<Map<String, dynamic>> maps) {
+    try {
+      return maps.map((e) => fromMap(e)).toList();
     } catch (e, stack) {
       throw TodoMapperErrors(e.toString(), stack);
     }

@@ -1,11 +1,11 @@
 import '../../domain/entities/entities.dart';
 
 abstract class TodoLocalDatasource {
-  Future<List<Todo>> fetchTodos();
+  Future<List<Todo>> fetch();
 
-  Future<Todo> createTodo();
+  Future<int> create({required Map<String, dynamic> map});
 
-  Future<Todo> updateTodo();
+  Future<int> update(Map<String, dynamic> map);
 
-  Future<Todo> deleteTodo();
+  Future<int> delete(int id);
 }

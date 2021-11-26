@@ -50,9 +50,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
   }
 
   @override
-  Future<List<Map<String, Object?>>> query(
-      String table,
-      bool? distinct,
+  Future<List<Map<String, Object?>>> query(String table,
+      {bool? distinct,
       List<String>? columns,
       String? where,
       List<Object?>? args,
@@ -60,7 +59,7 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
       String? having,
       String? orderBy,
       int? limit,
-      int? offset) {
+      int? offset}) {
     try {
       return database.query(
         table,

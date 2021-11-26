@@ -23,7 +23,7 @@ abstract class DatabaseAdapter {
   );
 
   Future<List<Map<String, Object?>>> query(
-    String table,
+    String table, {
     bool? distinct,
     List<String>? columns,
     String? where,
@@ -33,5 +33,5 @@ abstract class DatabaseAdapter {
     String? orderBy,
     int? limit,
     int? offset,
-  );
+  });
 }

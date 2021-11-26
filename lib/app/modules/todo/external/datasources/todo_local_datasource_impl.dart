@@ -1,9 +1,9 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_list_offline/app/core/helpers/errors/core_errors.dart';
+import 'package:todo_list_offline/app/modules/todo/external/mappers/mappers.dart';
 
 import '../../../../core/external/database/database_adapter.dart';
+import '../../../../core/helpers/errors/core_errors.dart';
 import '../../domain/entities/todo.dart';
-
 import '../../infra/datasources/todo_local_datasource.dart';
 
 class TodoLocalDatasourceImpl implements TodoLocalDatasource {
@@ -12,9 +12,9 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   TodoLocalDatasourceImpl({required this.adapter});
 
   @override
-  Future<Todo> createTodo() async {
+  Future<int> create({required Map<String, dynamic> map}) {
     try {
-      return;
+      return adapter.insert('Todo', map);
     } on Failure {
       rethrow;
     } on DatabaseException catch (e, stack) {
@@ -25,9 +25,9 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   }
 
   @override
-  Future<Todo> deleteTodo() async {
+  Future<int> delete(int id) {
     try {
-      return;
+      return adapter.delete('Todo', 'id = ?', [id]);
     } on Failure {
       rethrow;
     } on DatabaseException catch (e, stack) {
@@ -38,9 +38,9 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   }
 
   @override
-  Future<List<Todo>> fetchTodos() async {
+  Future<int> update(Map<String, dynamic> map) {
     try {
-      return;
+      return adapter.update('Todo', map, 'id = ?', [map['id']]);
     } on Failure {
       rethrow;
     } on DatabaseException catch (e, stack) {
@@ -51,9 +51,10 @@ class TodoLocalDatasourceImpl implements TodoLocalDatasource {
   }
 
   @override
-  Future<Todo> updateTodo() async {
+  Future<List<Todo>> fetch() async {
     try {
-      return;
+      final response = await adapter.query('Todo');
+      return TodoMapper.fromListMap(response);
     } on Failure {
       rethrow;
     } on DatabaseException catch (e, stack) {

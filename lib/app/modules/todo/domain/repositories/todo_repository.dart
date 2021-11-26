@@ -5,9 +5,9 @@ import '../entities/todo.dart';
 abstract class TodoRepository {
   Future<Either<Failure, List<Todo>>> fetch();
 
-  Future<Either<Failure, Todo>> create();
+  Future<Either<Failure, int>> create(Todo todo);
 
-  Future<Either<Failure, Todo>> delete();
+  Future<Either<Failure, int>> delete(Todo todo);
 
-  Future<Either<Failure, Todo>> update();
+  Future<Either<Failure, int>> update(Todo todo);
 }
