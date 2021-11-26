@@ -4,4 +4,10 @@ import '../entities/todo.dart';
 
 abstract class TodoRepository {
   Future<Either<Failure, List<Todo>>> fetch();
+
+  Future<Either<Failure, Todo>> create();
+
+  Future<Either<Failure, Todo>> delete();
+
+  Future<Either<Failure, Todo>> update();
 }
