@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:todo_list_offline/app/modules/todo/domain/entities/entities.dart';
+import 'package:todo_list_offline/app/modules/todo/domain/usecases/implementations/usecases_impl.dart';
+import 'package:todo_list_offline/app/modules/todo/domain/usecases/interfaces/usecases.dart';
 
 class MainTodoView extends StatefulWidget {
   const MainTodoView({Key? key, required this.title}) : super(key: key);
@@ -11,11 +15,21 @@ class MainTodoView extends StatefulWidget {
 
 class _MyHomePageState extends State<MainTodoView> {
   int _counter = 0;
+  late DeleteTodoUsecase controller;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Future _incrementCounter() async {
+    await controller.call(const Todo(
+        id: 1,
+        tag: 1,
+        title: 'title',
+        description: 'description',
+        datetime: '12341231'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Modular.get<DeleteTodoUsecaseImpl>();
   }
 
   @override

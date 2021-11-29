@@ -9,7 +9,7 @@ import '../datasources/todo_local_datasource.dart';
 class TodoRepositoryImpl implements TodoRepository {
   final TodoLocalDatasource datasource;
 
-  TodoRepositoryImpl(this.datasource);
+  TodoRepositoryImpl({required this.datasource});
 
   @override
   Future<Either<Failure, List<Todo>>> fetch() async {
