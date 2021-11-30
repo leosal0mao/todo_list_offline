@@ -16,7 +16,6 @@ class TodoModule extends Module {
         Bind((i) => DeleteTodoUsecaseImpl(repository: i.get())),
         Bind((i) => FetchTodosUsecaseImpl(repository: i.get())),
         Bind((i) => UpdateTodoUsecaseImpl(repository: i.get())),
-        Bind((i) => UpdateTodoUsecaseImpl(repository: i.get())),
       ];
 
   @override

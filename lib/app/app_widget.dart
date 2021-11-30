@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'modules/todo/presenter/main_todo_view.dart';
 
 class AppWidget extends StatelessWidget {
@@ -12,6 +13,6 @@ class AppWidget extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MainTodoView(title: 'Flutter Demo Home Page'),
-    );
+    ).modular();
   }
 }
