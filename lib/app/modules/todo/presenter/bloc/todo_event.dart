@@ -25,9 +25,28 @@ class UpdateTodoEvent extends TodoEvent {
 }
 
 class DeleteTodoEvent extends TodoEvent {
-  final String id;
+  final Todo todo;
 
-  DeleteTodoEvent({required this.id});
+  DeleteTodoEvent({required this.todo});
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [todo];
+}
+
+enum CrudEnum {
+  delete,
+  create,
+  update,
+}
+
+class CrudTodoEvent extends TodoEvent {
+  final CrudEnum crudEnum;
+  final Todo todo;
+
+  CrudTodoEvent({
+    required this.crudEnum,
+    required this.todo,
+  });
+
+  @override
+  List<Object?> get props => [crudEnum, todo];
 }

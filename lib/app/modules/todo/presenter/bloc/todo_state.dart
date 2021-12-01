@@ -22,22 +22,26 @@ class TodoFailureState extends TodoState {
 
 class TodoSucessState extends TodoState {
   final bool isLoading;
-  final List<Todo> todoList;
+  final Todo? todo;
+  final List<Todo>? todoList;
 
   TodoSucessState({
     this.isLoading = false,
-    required this.todoList,
+    this.todo,
+    this.todoList,
   });
 
   TodoSucessState copyWith(
+    Todo? todo,
     List<Todo>? todoList,
     bool? isLoading,
   ) {
     return TodoSucessState(
+        todo: todo ?? this.todo,
         todoList: todoList ?? this.todoList,
         isLoading: isLoading ?? this.isLoading);
   }
 
   @override
-  List<Object?> get props => [isLoading, todoList];
+  List<Object?> get props => [isLoading, todoList, todo];
 }

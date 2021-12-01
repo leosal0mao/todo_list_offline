@@ -10,9 +10,9 @@ class AppWidget extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
-      home: const MainTodoView(title: 'Flutter Demo Home Page'),
+      home: const MainTodoView(title: 'Todo list'),
     ).modular();
   }
 }

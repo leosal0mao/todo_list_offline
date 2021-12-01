@@ -34,7 +34,7 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, int>> delete(Todo todo) async {
     try {
-      var response = await datasource.delete(todo.id);
+      var response = await datasource.delete(todo.id!);
       return Right(response);
     } on Failure catch (e) {
       return Left(e);

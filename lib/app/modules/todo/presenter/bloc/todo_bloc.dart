@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:todo_list_offline/app/core/helpers/errors/failure.dart';
 
 import '../../domain/entities/entities.dart';
 import '../../domain/usecases/interfaces/usecases.dart';
@@ -29,14 +31,22 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(result);
     });
 
-    on<CreateTodoEvent>((event, emit) async {
+    on<CrudTodoEvent>((event, emit) async {
+      late final Either<Failure, int> response;
       emit(TodoLoadingState());
-      var response = await createUsecase(event.todo);
-      final result = response.fold(
-        (left) => TodoFailureState(message: left.message),
-        (right) => TodoSucessState(todoList: right),
+      if (event.crudEnum == CrudEnum.create) {
+        response = await createUsecase(event.todo);
+      } else if (event.crudEnum == CrudEnum.update) {
+        response = await updateUsecase(event.todo);
+      } else {
+        response = await deleteUsecase(event.todo);
+      }
+      response.fold(
+        (left) => emit(TodoFailureState(message: left.message)),
+        (right) {
+          add(FetchTodosEvent());
+        },
       );
-      emit(result);
     });
   }
 }

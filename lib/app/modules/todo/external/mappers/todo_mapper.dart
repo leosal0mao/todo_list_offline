@@ -7,11 +7,12 @@ class TodoMapper {
   static Todo fromMap(Map<String, dynamic> map) {
     try {
       return Todo(
-          id: map['id'],
-          tag: map['tag'],
-          title: map['title'],
-          description: map['description'],
-          datetime: map['datetime']);
+        id: map['id'],
+        tag: map['tag'],
+        title: map['title'],
+        description: map['description'],
+        // datetime: map['datetime']
+      );
     } catch (e, stack) {
       throw TodoMapperErrors(e.toString(), stack);
     }
@@ -20,11 +21,11 @@ class TodoMapper {
   static Map<String, dynamic> toMap(Todo todo) {
     try {
       return {
-        'id': todo.id,
+        if (todo.id != null) 'id': todo.id,
         'tag': todo.tag,
         'title': todo.title,
         'description': todo.description,
-        'datetime': todo.datetime,
+        // 'datetime': todo.datetime,
       };
     } catch (e, stack) {
       throw TodoMapperErrors(e.toString(), stack);

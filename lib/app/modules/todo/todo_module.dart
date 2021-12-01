@@ -1,10 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todo_list_offline/app/core/external/database/database_adapter_impl.dart';
-import 'package:todo_list_offline/app/modules/todo/domain/usecases/implementations/usecases_impl.dart';
-import 'package:todo_list_offline/app/modules/todo/external/datasources/todo_local_datasource_impl.dart';
-import 'package:todo_list_offline/app/modules/todo/presenter/main_todo_view.dart';
 
+import '../../core/external/database/database_adapter_impl.dart';
+import 'domain/usecases/implementations/usecases_impl.dart';
+import 'external/datasources/todo_local_datasource_impl.dart';
 import 'infra/repositories/todo_repository_impl.dart';
+import 'presenter/bloc/todo_bloc.dart';
+import 'presenter/main_todo_view.dart';
 
 class TodoModule extends Module {
   @override
@@ -16,11 +17,16 @@ class TodoModule extends Module {
         Bind((i) => DeleteTodoUsecaseImpl(repository: i.get())),
         Bind((i) => FetchTodosUsecaseImpl(repository: i.get())),
         Bind((i) => UpdateTodoUsecaseImpl(repository: i.get())),
+        Bind((i) => TodoBloc(
+            fetchUsecase: i.get(),
+            createUsecase: i.get(),
+            deleteUsecase: i.get(),
+            updateUsecase: i.get())),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/',
-            child: (context, args) => const MainTodoView(title: 'title')),
+            child: (context, args) => const MainTodoView(title: 'Todo List')),
       ];
 }

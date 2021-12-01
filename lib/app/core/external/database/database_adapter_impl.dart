@@ -11,6 +11,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
   Future<int> delete(String table, String where, List args) {
     try {
       return database.delete(table, where: where, whereArgs: args);
+    } on DatabaseException catch (e, stack) {
+      throw DatabaseError(e.toString(), stack);
     } catch (e, stack) {
       throw DatabaseError(e.toString(), stack);
     }
@@ -20,6 +22,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
   Future<int> insert(String table, Map<String, dynamic> object) {
     try {
       return database.insert(table, object);
+    } on DatabaseException catch (e, stack) {
+      throw DatabaseError(e.toString(), stack);
     } catch (e, stack) {
       throw DatabaseError(e.toString(), stack);
     }
@@ -35,6 +39,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
         where: where,
         whereArgs: args,
       );
+    } on DatabaseException catch (e, stack) {
+      throw DatabaseError(e.toString(), stack);
     } catch (e, stack) {
       throw DatabaseError(e.toString(), stack);
     }
@@ -44,6 +50,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
   Future<List<Map<String, Object?>>> querySql(String sql, List? args) {
     try {
       return database.rawQuery(sql, args);
+    } on DatabaseException catch (e, stack) {
+      throw DatabaseError(e.toString(), stack);
     } catch (e, stack) {
       throw DatabaseError(e.toString(), stack);
     }
@@ -73,6 +81,8 @@ class DatabaseAdapterImpl implements DatabaseAdapter {
         limit: limit,
         offset: offset,
       );
+    } on DatabaseException catch (e, stack) {
+      throw DatabaseError(e.toString(), stack);
     } catch (e, stack) {
       throw DatabaseError(e.toString(), stack);
     }
