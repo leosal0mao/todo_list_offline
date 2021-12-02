@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rive/rive.dart';
+import 'package:todo_list_offline/app/core/presenter/widgets/bottom_loader_widget.dart';
 import '../domain/entities/entities.dart';
 import 'bloc/todo_bloc.dart';
+import 'widgets/todo_card_widget.dart';
 
 class MainTodoView extends StatefulWidget {
   const MainTodoView({Key? key, required this.title}) : super(key: key);
@@ -13,15 +17,6 @@ class MainTodoView extends StatefulWidget {
 }
 
 class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
-  Future _incrementCounter() async {
-    await controller.createUsecase(const Todo(
-      tag: 1,
-      title: 'title',
-      description: 'description',
-      // datetime: '12341231'
-    ));
-  }
-
   @override
   void initState() {
     super.initState();
@@ -33,23 +28,52 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '1',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: BlocBuilder<TodoBloc, TodoState>(
+        bloc: controller,
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case TodoLoadingState:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case TodoFailureState:
+              return Center(
+                  child: Column(
+                children: [
+                  RiveAnimation.asset(
+                    'assets/animations/alert.riv',
+                    fit: BoxFit.fill,
+                  ),
+                  const Center(child: Text('Failed to gather information')),
+                ],
+              ));
+            case TodoSucessState:
+              return ListView.builder(
+                  // controller: _scrollController,
+                  itemCount: 5,
+                  padding: const EdgeInsets.all(10.0),
+                  itemBuilder: (context, i) {
+                    return i + 1 >= 6
+                        ? const BottomLoaderWidget()
+                        : TodoCardWidget(
+                            todo: Todo(
+                                tag: 1,
+                                title: 'title',
+                                description: 'description'),
+                            onPressed: () {
+                              Modular.to.pushNamed('/details/', arguments: i);
+                            });
+                  });
+            default:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {},
+        tooltip: 'Add Todo',
         child: const Icon(Icons.add),
       ),
     );

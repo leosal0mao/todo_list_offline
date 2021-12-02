@@ -28,5 +28,7 @@ class TodoModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/',
             child: (context, args) => const MainTodoView(title: 'Todo List')),
+        ChildRoute('/edit',
+            child: (context, args) => const MainTodoView(title: 'Todo List')),
       ];
 }

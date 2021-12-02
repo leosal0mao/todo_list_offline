@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'modules/todo/presenter/main_todo_view.dart';
 
 class AppWidget extends StatelessWidget {
@@ -10,6 +11,9 @@ class AppWidget extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.ubuntuTextTheme(
+          Theme.of(context).textTheme,
+        ),
         primarySwatch: Colors.purple,
       ),
       home: const MainTodoView(title: 'Todo list'),
