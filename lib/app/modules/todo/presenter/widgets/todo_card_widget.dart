@@ -14,6 +14,7 @@ class TodoCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 5,
       child: ListTile(
         leading: FlutterLogo(size: 56.0),
         title: Text(todo.title),

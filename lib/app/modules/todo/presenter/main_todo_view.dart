@@ -20,10 +20,12 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
   @override
   void initState() {
     super.initState();
+    controller.add(FetchTodosEvent());
   }
 
   @override
   Widget build(BuildContext context) {
+    var _height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -37,31 +39,35 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
                 child: CircularProgressIndicator(),
               );
             case TodoFailureState:
-              return Center(
-                  child: Column(
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  RiveAnimation.asset(
-                    'assets/animations/alert.riv',
-                    fit: BoxFit.fill,
+                  SizedBox(
+                    height: _height / 1.50,
+                    child: const RiveAnimation.asset(
+                      'assets/animations/alert.riv',
+                      fit: BoxFit.fill,
+                    ),
                   ),
+                  const SizedBox(height: 20),
                   const Center(child: Text('Failed to gather information')),
                 ],
-              ));
+              );
             case TodoSucessState:
               return ListView.builder(
                   // controller: _scrollController,
-                  itemCount: 5,
+                  itemCount: 20,
                   padding: const EdgeInsets.all(10.0),
                   itemBuilder: (context, i) {
-                    return i + 1 >= 6
+                    var _todo = Todo(
+                        tag: 1, title: 'title', description: 'description');
+                    return i + 1 >= 21
                         ? const BottomLoaderWidget()
                         : TodoCardWidget(
-                            todo: Todo(
-                                tag: 1,
-                                title: 'title',
-                                description: 'description'),
+                            todo: _todo,
                             onPressed: () {
-                              Modular.to.pushNamed('/details/', arguments: i);
+                              Modular.to.pushNamed('/edit/', arguments: _todo);
                             });
                   });
             default:

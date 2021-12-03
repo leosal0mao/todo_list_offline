@@ -6,6 +6,7 @@ import 'external/datasources/todo_local_datasource_impl.dart';
 import 'infra/repositories/todo_repository_impl.dart';
 import 'presenter/bloc/todo_bloc.dart';
 import 'presenter/main_todo_view.dart';
+import 'presenter/submodules/edit_todo/edit_todo_module.dart';
 
 class TodoModule extends Module {
   @override
@@ -28,7 +29,6 @@ class TodoModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/',
             child: (context, args) => const MainTodoView(title: 'Todo List')),
-        ChildRoute('/edit',
-            child: (context, args) => const MainTodoView(title: 'Todo List')),
+        ModuleRoute('/edit', module: EditTodoModule()),
       ];
 }
