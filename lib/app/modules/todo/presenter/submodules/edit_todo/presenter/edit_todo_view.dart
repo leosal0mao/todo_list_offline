@@ -7,6 +7,11 @@ class EditTodoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Text(todo!.title),
+      ),
+    );
   }
 }
