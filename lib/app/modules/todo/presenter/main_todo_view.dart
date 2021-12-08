@@ -20,8 +20,8 @@ class MainTodoView extends StatefulWidget {
 class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
   @override
   void initState() {
-    super.initState();
     controller.add(FetchTodosEvent());
+    super.initState();
   }
 
   @override
@@ -29,9 +29,6 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
     var _height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: const CustomAppbarWidget(),
-      // AppBar(
-      //   title: Text(widget.title),
-      // ),
       body: BlocBuilder<TodoBloc, TodoState>(
         bloc: controller,
         builder: (context, state) {
@@ -57,18 +54,19 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
                 ],
               );
             case TodoSucessState:
+              state as TodoSucessState;
               return ListView.builder(
-                  // controller: _scrollController,
-                  itemCount: 20,
+                  itemCount: state.todoList!.length,
                   padding: const EdgeInsets.all(10.0),
                   itemBuilder: (context, i) {
-                    var _todo = Todo(
-                        tag: 1, title: 'title', description: 'description');
-                    return i + 1 >= 21
+                    var _todo = state.todoList![i];
+                    var _listSize = state.todoList!.length;
+                    return i >= _listSize
                         ? const BottomLoaderWidget()
                         : Dismissible(
                             background: Container(
-                              decoration: BoxDecoration(color: Colors.red),
+                              decoration:
+                                  const BoxDecoration(color: Colors.red),
                             ),
                             confirmDismiss: (direction) async {
                               return true;
@@ -92,7 +90,9 @@ class _MyHomePageState extends ModularState<MainTodoView, TodoBloc> {
       floatingActionButton: FloatingActionButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        onPressed: () {},
+        onPressed: () {
+          Modular.to.pushNamed('./create/');
+        },
         tooltip: 'Add Todo',
         child: const Icon(Icons.add),
       ),

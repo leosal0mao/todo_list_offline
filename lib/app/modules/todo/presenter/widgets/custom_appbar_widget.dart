@@ -16,10 +16,9 @@ class CustomAppbarWidget extends StatelessWidget
       child: Stack(
         children: <Widget>[
           Container(
-            // Background
             child: const Center(
               child: Text(
-                "Todos",
+                "Todo List",
                 style: TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.w600,
@@ -27,7 +26,7 @@ class CustomAppbarWidget extends StatelessWidget
               ),
             ),
             color: Colors.purple,
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.19,
             width: MediaQuery.of(context).size.width,
           ),
           Container(),

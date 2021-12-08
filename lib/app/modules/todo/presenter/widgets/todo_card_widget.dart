@@ -18,14 +18,45 @@ class TodoCardWidget extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Material(
         elevation: 3,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         child: InkWell(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           onTap: onPressed,
           child: SizedBox(
             height: _height / 8,
             child: Row(
-              children: [],
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.check_box_outline_blank_rounded),
+                  onPressed: () {},
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          todo.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          todo.description,
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
