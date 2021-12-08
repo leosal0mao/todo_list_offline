@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todo_list_offline/app/modules/todo/presenter/bloc/todo_bloc.dart';
-import '../../../../../../core/presenter/widgets/bottom_button_widget.dart';
-import '../../../../../../core/presenter/widgets/custom_text_widget.dart';
-import '../../../../../../core/presenter/widgets/custom_textfield_widget.dart';
-import '../../../../../../core/presenter/widgets/date_picker_widget.dart';
-import '../../../../../../core/presenter/widgets/dropdown_tags_widget.dart';
-import '../../../../../../core/presenter/widgets/textfield_button_widget.dart';
-import '../../../../domain/entities/entities.dart';
+import '../../../../../core/presenter/widgets/global_widgets.dart';
+import '../../../presenter/bloc/todo_bloc.dart';
 
-class EditTodoView extends StatefulWidget {
-  final Todo? todo;
-  const EditTodoView({Key? key, this.todo}) : super(key: key);
+class CreateTodoView extends StatefulWidget {
+  const CreateTodoView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<EditTodoView> createState() => _EditTodoViewState();
+  State<CreateTodoView> createState() => _CreateTodoViewState();
 }
 
-class _EditTodoViewState extends ModularState<EditTodoView, TodoBloc> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _CreateTodoViewState extends ModularState<CreateTodoView, TodoBloc> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(
@@ -74,7 +64,7 @@ class _EditTodoViewState extends ModularState<EditTodoView, TodoBloc> {
             ),
           ),
           bottomNavigationBar: BottomButtonWidget(
-            text: 'Edit To-Do',
+            text: 'Create To-Do',
             onTap: () {},
           ),
         );
